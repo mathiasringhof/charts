@@ -22,6 +22,8 @@ env:
   COMPOSE_PROJECT_NAME: paperless
   # -- Redis to use
   PAPERLESS_REDIS: redis://localhost:6379
+  # -- Postgres to use
+  PAPERLESS_DBHOST: paperless-postgresql-headless
   # -- OCR languages to install
   PAPERLESS_OCR_LANGUAGE: eng
   # USERMAP_UID: 1000
@@ -75,6 +77,18 @@ persistence:
     accessMode: ReadWriteOnce
     emptyDir:
       enabled: false
+
+# -- Enable and configure postgresql database subchart under this key.
+#    For more options see [postgresql chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/postgresql)
+# @default -- See values.yaml
+postgresql:
+  enabled: true
+  postgresqlUsername: paperless
+  postgresqlPassword: paperless
+  postgresqlDatabase: paperless
+  persistence:
+    enabled: false
+    # storageClass: ""      
 
 # -- Deploy local redis instance.
 # @default -- See values.yaml
